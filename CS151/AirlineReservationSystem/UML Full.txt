@@ -1,0 +1,47 @@
+@startuml
+class ReservationSystem
+ReservationSystem --> Plane
+ReservationSystem --> FileHandler
+ReservationSystem : Plane plane
+ReservationSystem : FileHandler fileHandler
+
+FileHandler ..> Plane 
+FileHandler : Plane plane
+FileHandler : readFile()
+FileHandler : saveFile(Plane _plane)
+
+
+Plane *- Seat
+Plane *- Group
+
+Plane ..> Passenger
+Plane ..> Group
+
+
+Plane : ArrayList<Group> groups
+Plane : Seat[][] first
+Plane : Seat[][] economy
+Plane : addPassenger()
+Plane : addGroup()
+Plane : cancelReservation()
+Plane : seatAvailabilityChart()
+Plane : printManifest()
+
+Group *- Passenger
+Group : ArrayList<Passenger> passengers
+Group : String groupName
+Group : String classService
+
+Seat --> Passenger 
+Seat : Passenger passenger
+Seat : int row
+Seat : int column
+Seat : String classService
+Seat : String seatPref
+
+Passenger : String name
+Passenger : String classService
+Passenger : String groupName
+Passenger : int row
+Passenger : int column
+

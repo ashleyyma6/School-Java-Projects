@@ -1,0 +1,55 @@
+@startuml
+actor User
+ReservationSystem -> FileHandler: call readFile()
+FileHandler --> Plane: Save prior reservation
+ReservationSystem -->ReservationSystem: Print menu
+
+User -> ReservationSystem: Input "P" add Passenger
+ReservationSystem -> Plane: call addPassenger()
+User -> Plane: Input: name, class, seatPref
+Plane --> Passenger: create Passenger
+Plane --> Plane: Find empty seat
+Plane --> Plane: Make reservation
+Plane --> User: Print message
+
+ReservationSystem -->User: Print menu
+
+User -> ReservationSystem: Input "G" add group
+ReservationSystem -> Plane: call addGroup()
+User -> Plane: Input: Group name, passengers, class
+Plane --> Group: Create group
+Plane --> Passenger: Create Passengers
+Plane --> Group: add passenger to group
+Plane -> Plane: Find empty adjacent seat
+Plane --> Plane: add passenger into seats
+Plane --> Plane: Put group into arraylist
+Plane --> User: Print message
+
+ReservationSystem -->User: Print menu
+
+User -> ReservationSystem: Input "C" Cancellation
+ReservationSystem -> Plane: call cancelReservation()
+User -> Plane: Input "P"assenger or "G"roup
+Plane --> Plane: Find passenger or group
+Plane --> Plane: Make cancellation
+Plane --> User: Print message
+
+ReservationSystem -->User: Print menu
+
+User -> ReservationSystem: Input "M" Manifest
+ReservationSystem -> Plane: call printManifrst()
+Plane --> User: Print Manifest
+
+ReservationSystem -->User: Print menu
+
+User -> ReservationSystem: Input "A"
+ReservationSystem -> Plane: call seatAvailabilityChart()
+Plane --> User: Print avaliable seats
+
+ReservationSystem -->User: Print menu
+
+User -> ReservationSystem: Input "Q" quit
+ReservationSystem -> FileHandler: call saveFile()
+ReservationSystem --> User: print quit message
+
+@enduml

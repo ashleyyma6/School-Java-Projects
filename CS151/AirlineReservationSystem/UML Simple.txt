@@ -1,0 +1,26 @@
+@startuml
+class ReservationSystem
+ReservationSystem --> Plane
+ReservationSystem --> FileHandler
+
+
+FileHandler ..> Plane 
+
+
+
+Plane *- Seat
+Plane *- Group
+
+Plane ..> Passenger
+Plane ..> Group
+
+
+
+Group *- Passenger
+
+
+Seat --> Passenger 
+
+
+
+
