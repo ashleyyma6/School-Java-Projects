@@ -1,4 +1,3 @@
-package PJ4;
 import java.util.*;
 
 /*
@@ -8,27 +7,27 @@ import java.util.*;
  *
  * Short Description and Poker rules:
  *
- * Video poker is also known as draw poker. 
- * The dealer uses a 52-card deck, which is played fresh after each playerHand. 
- * The player is dealt one five-card poker playerHand. 
- * After the first draw, which is automatic, you may hold any of the cards and draw 
- * again to replace the cards that you haven't chosen to hold. 
- * Your cards are compared to a table of winning combinations. 
- * The object is to get the best possible combination so that you earn the highest 
- * payout on the bet you placed. 
+ * Video poker is also known as draw poker.
+ * The dealer uses a 52-card deck, which is played fresh after each playerHand.
+ * The player is dealt one five-card poker playerHand.
+ * After the first draw, which is automatic, you may hold any of the cards and draw
+ * again to replace the cards that you haven't chosen to hold.
+ * Your cards are compared to a table of winning combinations.
+ * The object is to get the best possible combination so that you earn the highest
+ * payout on the bet you placed.
  *
  * Winning Combinations
- *  
+ *
  * 1. One Pair: one pair of the same card
- * 2. Two Pair: two sets of pairs of the same card denomination. 
- * 3. Three of a Kind: three cards of the same denomination. 
- * 4. Straight: five consecutive denomination cards of different suit. 
- * 5. Flush: five non-consecutive denomination cards of the same suit. 
- * 6. Full House: a set of three cards of the same denomination plus 
- * 	a set of two cards of the same denomination. 
- * 7. Four of a kind: four cards of the same denomination. 
- * 8. Straight Flush: five consecutive denomination cards of the same suit. 
- * 9. Royal Flush: five consecutive denomination cards of the same suit, 
+ * 2. Two Pair: two sets of pairs of the same card denomination.
+ * 3. Three of a Kind: three cards of the same denomination.
+ * 4. Straight: five consecutive denomination cards of different suit.
+ * 5. Flush: five non-consecutive denomination cards of the same suit.
+ * 6. Full House: a set of three cards of the same denomination plus
+ * 	a set of two cards of the same denomination.
+ * 7. Four of a kind: four cards of the same denomination.
+ * 8. Straight Flush: five consecutive denomination cards of the same suit.
+ * 9. Royal Flush: five consecutive denomination cards of the same suit,
  * 	starting from 10 and ending with an ace
  *
  */
@@ -42,7 +41,6 @@ import java.util.*;
  */
 
 
-
 public class VideoPoker {
 
     // default constant values
@@ -51,14 +49,14 @@ public class VideoPoker {
 
     // default constant payout value and playerHand types
     private static final int[] multipliers={1,2,3,5,6,10,25,50,1000};
-    private static final String[] goodHandTypes={ 
-	  "One Pair" , "Two Pairs" , "Three of a Kind", "Straight", "Flush	", 
+    private static final String[] goodHandTypes={
+	  "One Pair" , "Two Pairs" , "Three of a Kind", "Straight", "Flush	",
 	  "Full House", "Four of a Kind", "Straight Flush", "Royal Flush" };
 
     // must use only one deck
     private final Decks oneDeck;
 
-    // holding current poker 5-card hand, balance, bet    
+    // holding current poker 5-card hand, balance, bet
     private List<Card> playerHand;
     private int playerBalance;
     private int playerBet;
@@ -66,27 +64,27 @@ public class VideoPoker {
     /** default constructor, set balance = startingBalance */
     public VideoPoker()
     {
-	this(startingBalance);
+       this(startingBalance);
     }
 
     /** constructor, set given balance */
     public VideoPoker(int balance)
     {
-	this.playerBalance= balance;
-        oneDeck = new Decks(1, false);
+      this.playerBalance= balance;
+      oneDeck = new Decks(1, false);
     }
 
     /** This display the payout table based on multipliers and goodHandTypes arrays */
     private void showPayoutTable()
-    { 
-	System.out.println("\n\n");
-	System.out.println("Payout Table   	      Multiplier   ");
-	System.out.println("=======================================");
-	int size = multipliers.length;
-	for (int i=size-1; i >= 0; i--) {
-		System.out.println(goodHandTypes[i]+"\t|\t"+multipliers[i]);
-	}
-	System.out.println("\n\n");
+    {
+      System.out.println("\n\n");
+      System.out.println("Payout Table   	      Multiplier   ");
+      System.out.println("=======================================");
+      int size = multipliers.length;
+      for (int i=size-1; i >= 0; i--) {
+        System.out.println(goodHandTypes[i]+"\t|\t"+multipliers[i]);
+      }
+      System.out.println("\n\n");
     }
 
     /** Check current playerHand using multipliers and goodHandTypes arrays
@@ -151,6 +149,7 @@ public class VideoPoker {
         });
         return ranksorted;
     }
+
     //Royal Flush: five consecutive denomination cards of the same suit,
     //starting from 10 and ending with an ace
     private boolean isRoyalFlush() {
@@ -164,6 +163,7 @@ public class VideoPoker {
         }
         return (counter == 4);
     }
+
     //Straight Flush: five consecutive denomination cards of the same suit.
     private boolean isStraightFlush() {
         int counter = 0;
@@ -176,7 +176,7 @@ public class VideoPoker {
         }
         return (counter == 4);
     }
-    
+
     private boolean isStraight() {
         int Rankcounter = 0;
         int Suitcounter = 0;
@@ -215,7 +215,7 @@ public class VideoPoker {
             }
         }
         return (counter == 3 && (temp.get(0) == temp.get(1) && temp.get(1) != temp.get(2)));
-    }    
+    }
     //Four of a kind: four cards of the same denomination.
     private boolean isFourofaKind() {
         int counter = 0;
@@ -226,7 +226,7 @@ public class VideoPoker {
         }
         return (isFullHouse() == false && counter == 3);
     }
-    
+
     private boolean isThreeofaKind() {
         int counter = 0;
         for (int i = 0; i < (numberOfCards - 1); i++) {
@@ -236,7 +236,7 @@ public class VideoPoker {
         }
         return (counter == 2&&isTwoPairs()==false);
     }
-    
+
     private boolean isTwoPairs() {
         int ranka = 0;
         int rankb = 0;
@@ -264,7 +264,7 @@ public class VideoPoker {
         }
         return (counter==1);
     }
-   
+
     public void play() {
         /**
          * The main algorithm for single player poker game
@@ -285,7 +285,7 @@ public class VideoPoker {
         System.out.println("=====================");
         List<Card> keptCard = new ArrayList<Card>();
         showPayoutTable();
-        
+
         //loop until banlance=0 or user stop game
         while (check && playerBalance > 0) {
             boolean showTable = true;
@@ -303,14 +303,14 @@ public class VideoPoker {
                 Scanner input = new Scanner(System.in);
                 if (input.hasNextInt()) {
                     playerBet = input.nextInt();
-                    if (playerBet <= playerBalance && playerBet < 0) {
+                    if (playerBet <= playerBalance && playerBet > 0) {
                         balancecheck = false;
                         playerBalance = playerBalance - playerBet;
                     } else {
-                        System.out.println("Wrong input, please enter again.");
+                        System.out.println("Wrong input1, please enter again.");
                     }
                 } else {
-                    System.out.println("Wrong input, please enter again.");
+                    System.out.println("Wrong input2, please enter again.");
                 }
             }
             //reset deck, shuffle deck
@@ -318,7 +318,7 @@ public class VideoPoker {
             oneDeck.shuffle();
             //deal display cards
             try {
-                playerHand = oneDeck.deal(numberOfCards);     
+                playerHand = oneDeck.deal(numberOfCards);
             } catch (PlayingCardException e) {
                 System.out.println("PlayingCardException: " + e.getMessage());
             }
@@ -385,17 +385,17 @@ public class VideoPoker {
                 Scanner input3 = new Scanner(System.in);
                 if (input3.hasNext()) {
                     String YN = input3.next();
-                    if (YN == "y") {
+                    if (YN.equals("y")) {
                         while (showTable) {
                             System.out.println("Want to see payout table (y or n)?");
                             Scanner input4 = new Scanner(System.in);
                             if (input4.hasNext()) {
                                 String YorN = input4.next();
-                                if (YorN == "y") {
+                                if (YorN.equals("y")) {
                                     showPayoutTable();
                                     showTable = false;
                                     break;
-                                } else if (YorN == "n") {
+                                } else if (YorN.equals("n")) {
                                     showTable = false;
                                     break;
                                 } else {
@@ -408,7 +408,7 @@ public class VideoPoker {
                         }
                         break;
 
-                    } else if (YN == "n") {
+                    } else if (YN.equals("n")) {
                         check = false;
                         showTable = false;
                     } else {
@@ -428,15 +428,14 @@ public class VideoPoker {
      *   Do not modify methods below
     /*************************************************
 
-    /** testCheckHands() is used to test checkHands() method 
+    /** testCheckHands() is used to test checkHands() method
      *  checkHands() should print your current hand type
-     */ 
+     */
 
     public void testCheckHands()
     {
-      	try {
-    		playerHand = new ArrayList<Card>();
-
+      try {
+        playerHand = new ArrayList<Card>();
 		// set Royal Flush
 		playerHand.add(new Card(3,1));
 		playerHand.add(new Card(3,10));
@@ -444,28 +443,28 @@ public class VideoPoker {
 		playerHand.add(new Card(3,11));
 		playerHand.add(new Card(3,13));
 		System.out.println(playerHand);
-    		checkHands();
+    checkHands();
 		System.out.println("-----------------------------------");
 
 		// set Straight Flush
 		playerHand.set(0,new Card(3,9));
 		System.out.println(playerHand);
-    		checkHands();
+    checkHands();
 		System.out.println("-----------------------------------");
 
 		// set Straight
 		playerHand.set(4, new Card(1,8));
 		System.out.println(playerHand);
-    		checkHands();
+    checkHands();
 		System.out.println("-----------------------------------");
 
-		// set Flush 
+		// set Flush
 		playerHand.set(4, new Card(3,5));
 		System.out.println(playerHand);
-    		checkHands();
+    checkHands();
 		System.out.println("-----------------------------------");
 
-		// "Royal Pair" , "Two Pairs" , "Three of a Kind", "Straight", "Flush	", 
+		// "Royal Pair" , "Two Pairs" , "Three of a Kind", "Straight", "Flush	",
 	 	// "Full House", "Four of a Kind", "Straight Flush", "Royal Flush" };
 
 		// set Four of a Kind
@@ -476,55 +475,53 @@ public class VideoPoker {
 		playerHand.add(new Card(2,8));
 		playerHand.add(new Card(3,8));
 		System.out.println(playerHand);
-    		checkHands();
+    checkHands();
 		System.out.println("-----------------------------------");
 
 		// set Three of a Kind
 		playerHand.set(4, new Card(4,11));
 		System.out.println(playerHand);
-    		checkHands();
+    checkHands();
 		System.out.println("-----------------------------------");
 
 		// set Full House
 		playerHand.set(2, new Card(2,11));
 		System.out.println(playerHand);
-    		checkHands();
+    checkHands();
 		System.out.println("-----------------------------------");
 
 		// set Two Pairs
 		playerHand.set(1, new Card(2,9));
 		System.out.println(playerHand);
-    		checkHands();
+    checkHands();
 		System.out.println("-----------------------------------");
 
 		// set One Pair
 		playerHand.set(0, new Card(2,3));
 		System.out.println(playerHand);
-    		checkHands();
+    checkHands();
 		System.out.println("-----------------------------------");
 
 		// set One Pair
 		playerHand.set(2, new Card(4,3));
 		System.out.println(playerHand);
-    		checkHands();
+    checkHands();
 		System.out.println("-----------------------------------");
 
 		// set no Pair
 		playerHand.set(2, new Card(4,6));
 		System.out.println(playerHand);
-    		checkHands();
+    checkHands();
 		System.out.println("-----------------------------------");
-      	}
-      	catch (Exception e)
-      	{
+  }catch (Exception e){
 		System.out.println(e.getMessage());
-      	}
-    }
+  }
+}
 
     /* Quick testCheckHands() */
-    public static void main(String args[]) 
+    public static void main(String args[])
     {
-	VideoPoker pokergame = new VideoPoker();
-	pokergame.testCheckHands();
+      VideoPoker pokergame = new VideoPoker();
+      pokergame.testCheckHands();
     }
 }

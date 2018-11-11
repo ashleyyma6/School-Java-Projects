@@ -2,7 +2,7 @@
  *
  *  This program is used to test PJ4.VideoPoker class
  *  More info are given in Readme file
- * 
+ *
  *  PJ4 class allows user to run program as follows:
  *
  *    	java PJ4		// default credit is $100
@@ -12,11 +12,9 @@
  *
  **************************************************************************************/
 
-import PJ4.VideoPoker;
-
 class TestVideoPoker {
 
-    public static void main(String args[]) 
+    public static void main(String args[])
     {
 	VideoPoker pokergame;
 	if (args.length > 0)
